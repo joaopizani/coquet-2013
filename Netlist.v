@@ -25,9 +25,14 @@ Section pick.
     induction enum. simpl in H'.  discriminate. 
     simpl in *.
     unfold eqA. 
-    destruct (@equal A (@eq_fin A H)e a). exists 0.  reflexivity.
-    injection H'. clear H'. intros H'. 
-    destruct IHl. auto. exists (x+1).
+    destruct (@equal A (@eq_fin A H)e a). exists 0.
+    injection H'.
+    clear H'.
+    intros H'. 
+    reflexivity.
+    destruct IHl.
+    auto.
+    exists (x+1).
 
     Lemma find_gen : forall e l i j x, 
       find e i l = Some x -> 
