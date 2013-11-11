@@ -524,9 +524,9 @@ Proof.
   rewrite two_power_nat_plus.     
   repeat case zlt_lt; intros; try reflexivity; exfalso. 
   unfold small in H. omega. 
-  rewrite Zplus_0_r in z. 
-  rewrite (Zmult_comm [2^n]) in z.
-  apply Zmult_lt_reg_r in z; auto with words. 
+  rewrite Zplus_0_r in l.
+  rewrite (Zmult_comm [2^n]) in l.
+  apply Zmult_lt_reg_r in l; auto with words. 
   assert (Hx' : 0 <= low < [2^n]). auto with words. 
   assert ( HH := comb_lt' n m low high  ).
   unfold small in *.  intuition. unfold comb in *.
@@ -542,9 +542,9 @@ Proof.
   intros; unfold overflow.  unfold comb.
   rewrite two_power_nat_plus. repeat case zlt_lt; intros; try reflexivity.   
   exfalso. apply n0. 
-  rewrite Zplus_0_r in z. 
-  rewrite (Zmult_comm [2^n]) in z.
-  apply Zmult_lt_reg_r in z; auto with words. 
+  rewrite Zplus_0_r in l. 
+  rewrite (Zmult_comm [2^n]) in l.
+  apply Zmult_lt_reg_r in l; auto with words. 
   exfalso. apply n0.
   rewrite Zplus_0_r.
   rewrite (Zmult_comm [2^n]) .
