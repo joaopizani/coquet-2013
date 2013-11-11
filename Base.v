@@ -170,7 +170,6 @@ Section t.
     rewrite H. clear H. 
     compute. 
     f_equal.
-    Require Import Axioms. apply  functional_extensionality; reflexivity.  
   Qed.
 
   
@@ -352,3 +351,4 @@ Ltac plug_auto :=
         apply inversion_Plug in H;
           rewrite H; reflexivity
   end.
+
