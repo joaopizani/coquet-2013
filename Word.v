@@ -9,7 +9,9 @@
 
 Require Import Vector. 
 Require Import ZArith.
-Require Bool. 
+Require Bool.
+
+Require Export Coq.Classes.RelationClasses.
 
 Notation "[2^ p ]" := (two_power_nat p).
 Lemma two_power_nat_0 : ([2^0] = 1)%Z.
@@ -30,6 +32,9 @@ Proof.
   auto.
   auto with zarith.
 Qed.
+
+
+
 Instance Zle_Refl : Reflexive Zle. Proof. intros x; apply Zle_refl. Qed.
 Instance Zle_Trans : Transitive Zle. Proof. intros x; apply Zle_trans. Qed.
 Require Import Morphisms. 
