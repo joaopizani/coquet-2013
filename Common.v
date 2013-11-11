@@ -76,8 +76,6 @@ Module Stream.
     Lemma unzip_zip : forall x y, unzip (zip x y) = (x, y).
     Proof. 
       intros; compute. 
-      rewrite <- eta_expansion. 
-      rewrite <- eta_expansion. 
       reflexivity. 
     Qed.
   End ops. 
