@@ -195,7 +195,7 @@ Section stream.
     compute. destruct ( x t ); reflexivity. 
     
     intros [a b]. simpl. 
-    rewrite <- ! eta_expansion; reflexivity. 
+    reflexivity. 
   Qed.
 
   Fixpoint vector_unlift n : stream (vector A n) -> vector (stream A) n :=
@@ -227,7 +227,8 @@ Section stream.
   
     simpl. intros [t q]; simpl. 
     simpl in IHn. 
-    unfold Stream.map. simpl. rewrite <- !eta_expansion. rewrite IHn. 
+    unfold Stream.map. simpl.
+    rewrite IHn. 
     reflexivity. 
   Qed.
 
@@ -409,7 +410,7 @@ Lemma skipn_iso_sumn A A' Data (I : Iso (A -> Data) A') :
         iso_sumn Data I p (Data.select_right (Data.lift (Sumn.sumn_add _ n p ) x)).
 Proof. 
   induction n; intros. 
-  simpl. f_equal. apply functional_extensionality; intros; reflexivity. 
+  simpl. f_equal.
   simpl;  rewrite IHn;   f_equal. 
 Qed.
 
@@ -451,3 +452,4 @@ Ltac cast x BC :=
             end
         end
   end.
+
