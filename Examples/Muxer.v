@@ -115,7 +115,10 @@ Module MUX (M : T).
       simpl. 
       unfold Reify_sum. unfold Reify_Sum. 
       
-      unreify_all bool; simpl in *; destruct_all;intros_all; boolean_eq. 
+      unreify_all bool; simpl in *; destruct_all.
+      simpl.
+      intros_all.
+      boolean_eq.
     Qed.    
   End t.
 End MUX.  
