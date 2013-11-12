@@ -83,9 +83,9 @@ Module Register1bit (X : T).
     intros ins outs H; unfold register in H. 
     apply inversion_Loop in H; destruct H as [retro H].
     rinvert. 
-    realise_all. 
     apply Implement_MUX2 in Hk2. 
     apply Implement_DFF in Hk1.
+    realise_all. 
     unreify_all (stream bool).
     Notation "[ X : B (via  R ) ]" := (@reify _  B R X) : view_scop.
     unfold Reify_tag in *. 
