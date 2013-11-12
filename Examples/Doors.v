@@ -37,11 +37,27 @@ Module DOORS (M : T).
     destruct_all;               (* destruct the booleans *)
     intros_all; clear; boolean_eq. 
 
+  Ltac tac_simpl :=  
+    rinvert;                    (* destruct the circuit *)
+    realise_all;                (* use the hint data-base *)
+    unreify_all bool;           (* unreify *)
+    destruct_all;               (* destruct the booleans *)
+    simpl;
+    intros_all; clear; boolean_eq. 
+
   Ltac tac_discriminate :=  
     rinvert;                    (* destruct the circuit *)
     realise_all;                (* use the hint data-base *)
     unreify_all bool;           (* unreify *)
     destruct_all;               (* destruct the booleans *)
+    intros_all; clear; boolean_eq_discriminate. 
+
+  Ltac tac_simpl_discriminate :=  
+    rinvert;                    (* destruct the circuit *)
+    realise_all;                (* use the hint data-base *)
+    unreify_all bool;           (* unreify *)
+    destruct_all;               (* destruct the booleans *)
+    simpl;
     intros_all; clear; boolean_eq_discriminate. 
 
   Definition NOT x nx: circuit [:x] [:nx] := Fork2 _  |> (NOR x x nx).
@@ -72,6 +88,7 @@ Module DOORS (M : T).
     realise_all.
     unreify_all bool.
     destruct_all.
+    simpl.
     intros_all.
     clear.
     (* boolean_eq *)
@@ -83,7 +100,7 @@ Module DOORS (M : T).
 
   Instance AND_Implement {a b out}: Implement (AND a b out) _ _ (curry andb).
   Proof. 
-    unfold AND;intros ins outs H; tac_discriminate.
+    unfold AND;intros ins outs H; tac_simpl_discriminate.
   Qed.
 
   (* TODO : move RENAME to Base *)
@@ -105,7 +122,7 @@ Module DOORS (M : T).
     ([b:nx] & [b:yx])%reif
     (fun x => (negb x,x)).
   Proof.
-    intros ins outs H; unfold BOTH in H; tac_discriminate.
+    intros ins outs H; unfold BOTH in H; tac_simpl_discriminate.
   Qed.
 
   Program Definition XOR a b out: circuit ([:a] + [:b])  ([:out]):=
@@ -129,7 +146,7 @@ Module DOORS (M : T).
   
   Instance XOR_Implement {a b out}: Implement (XOR a b out) _ _  (curry xorb). 
   Proof. 
-    unfold XOR;   intros ins outs H; tac_discriminate.
+    unfold XOR;   intros ins outs H; tac_simpl_discriminate.
   Qed.
 
   Program Definition MUX2 a b sel out: circuit ([:a] + [:b] + [:sel]) [:out] 
@@ -152,7 +169,7 @@ Module DOORS (M : T).
    ([b: out])%reif
    (ite  ).
  Proof. 
-   unfold MUX2;intros ins outs H. tac_discriminate.
+   unfold MUX2;intros ins outs H. tac_simpl_discriminate.
  Qed.
 
  (* TODO : remettre le Fork2 ici *)
@@ -177,7 +194,7 @@ Module DOORS (M : T).
                             end
    ).
  Proof. 
-   unfold HADD;  intros ins outs H; tac_discriminate.
+   unfold HADD;  intros ins outs H; tac_simpl_discriminate.
  Qed.
 
 
@@ -218,8 +235,10 @@ Module DOORS (M : T).
    ).
  Proof. 
    (* changed *)
-   unfold FADD; intros ins outs H.
+   unfold FADD; intros ins outs H;
+   tac_simpl_discriminate.
    (* tac *)
+   (*
    rinvert.
    realise_all.
    unreify_all bool.
@@ -227,9 +246,10 @@ Module DOORS (M : T).
    simpl.
    intros_all.
    clear.
-
    destruct b0, b1, b2.
    reflexivity.
+   *)
+
 
  Qed.
 End DOORS. 
