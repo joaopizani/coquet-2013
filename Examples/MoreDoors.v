@@ -49,7 +49,7 @@ Module MORE_DOORS.
     Lemma ncst_unit2 : ~ (forall f : (unit + unit) -> nat, cst _ f).   
     Proof. 
       intros H. 
-      specialize (H ( fun x=> match x with inl  tt => 1 | inr tt  => 2 end ) (inl tt) (inr _ tt)). 
+      specialize (H ( fun x=> match x with inl  tt => 1 | inr tt  => 2 end ) (inl tt) (inr tt)). 
       simpl in H. 
       discriminate.
     Qed. 
@@ -70,7 +70,7 @@ Module MORE_DOORS.
       exfalso;  apply discr; auto. 
     Qed.  
     Lemma inversion_NOR ins outs :  tech_spec_ _ _ T_NOR ins outs ->
-      (outs tt = norb (ins (inl tt)) (ins (inr _ tt))).
+      (outs tt = norb (ins (inl tt)) (ins (inr tt))).
     Proof.
       intros H.
       dependent destruction H; auto.  
@@ -78,28 +78,28 @@ Module MORE_DOORS.
     Qed.
     
     Lemma inversion_NAND ins outs :  tech_spec_ _ _ T_NAND ins outs ->
-      (outs tt = nandb (ins (inl tt)) (ins (inr _ tt))).
+      (outs tt = nandb (ins (inl tt)) (ins (inr tt))).
     Proof.
       intros H.
       dependent destruction H; auto.  
       exfalso.  apply discr. auto. 
     Qed.
     Lemma inversion_AND ins outs :  tech_spec_ _ _ T_AND ins outs ->
-      (outs tt = andb (ins (inl tt)) (ins (inr _ tt))).
+      (outs tt = andb (ins (inl tt)) (ins (inr tt))).
     Proof.
       intros H.
       dependent destruction H; auto.  
       exfalso.  apply discr. auto. 
     Qed.
     Lemma inversion_OR ins outs :  tech_spec_ _ _ T_OR ins outs ->
-      (outs tt = orb (ins (inl tt)) (ins (inr _ tt))).
+      (outs tt = orb (ins (inl tt)) (ins (inr tt))).
     Proof.
       intros H.
       dependent destruction H; auto.  
       exfalso.  apply discr. auto. 
     Qed.
     Lemma inversion_XOR ins outs :  tech_spec_ _ _ T_XOR ins outs ->
-      (outs tt = xorb (ins (inl tt)) (ins (inr _ tt))).
+      (outs tt = xorb (ins (inl tt)) (ins (inr tt))).
     Proof.
       intros H.
       dependent destruction H; auto.  
