@@ -26,9 +26,6 @@ Section pick.
     simpl in *.
     unfold eqA. 
     destruct (@equal A (@eq_fin A H)e a). exists 0.
-    injection H'.
-    clear H'.
-    intros H'. 
     reflexivity.
     destruct IHl.
     auto.
