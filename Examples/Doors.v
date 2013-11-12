@@ -224,63 +224,13 @@ Module DOORS (M : T).
    realise_all.
    unreify_all bool.
    destruct_all.
+   simpl.
    intros_all.
    clear.
-   (* boolean_eq unroll *)
-   (*
-   * match goal with 
-   | x : bool |- _ => destruct x
-   end;
-   *)
-   destruct b0.
-   destruct b2.
-   destruct b3.
-   destruct b4.
-   destruct b5.
-   destruct b6.
-   destruct b7.
-   destruct b8.
-   destruct b9.
-   destruct b10.
-   destruct b11.
-   destruct b12.
-   destruct b13.
-   destruct b14.
-   destruct b15.
-   destruct b16.
-   destruct b1.
 
-   intros.
-   reflexivity.
-   intros.
-   discriminate.
-   intros.
-   discriminate.
-    intros.
-    discriminate.
-    intros.
-    discriminate.
-    intros.
-    discriminate.
-    intros.
-    discriminate.
-    intros.
-    discriminate.
-    intros.
-    discriminate.
-    intros.
-    discriminate.
-    intros.
-    discriminate.
-    intros.
-
-    reflexivity.
-    discriminate.
-
+   destruct b0, b1, b2.
    reflexivity.
 
-
-   reflexivity.
  Qed.
 End DOORS. 
 
