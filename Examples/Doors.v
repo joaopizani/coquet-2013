@@ -37,6 +37,13 @@ Module DOORS (M : T).
     destruct_all;               (* destruct the booleans *)
     intros_all; clear; boolean_eq. 
 
+  Ltac tac_discriminate :=  
+    rinvert;                    (* destruct the circuit *)
+    realise_all;                (* use the hint data-base *)
+    unreify_all bool;           (* unreify *)
+    destruct_all;               (* destruct the booleans *)
+    intros_all; clear; boolean_eq_discriminate. 
+
   Definition NOT x nx: circuit [:x] [:nx] := Fork2 _  |> (NOR x x nx).
   
   Instance NOT_Implement {x nx} : Implement (NOT x nx) _ _  (negb).
@@ -60,7 +67,15 @@ Module DOORS (M : T).
   Instance NAND_Implement {a  b out}: Implement (NAND a b out) _ _ (curry nandb).
   Proof. 
     unfold NAND; intros ins outs H. 
-    tac. 
+    (* tac *)
+    rinvert.
+    realise_all.
+    unreify_all bool.
+    destruct_all.
+    intros_all.
+    clear.
+    (* boolean_eq *)
+    boolean_eq_discriminate.
   Qed.
 
   Definition AND a b out:= 
@@ -68,7 +83,7 @@ Module DOORS (M : T).
 
   Instance AND_Implement {a b out}: Implement (AND a b out) _ _ (curry andb).
   Proof. 
-    unfold AND;intros ins outs H; tac. 
+    unfold AND;intros ins outs H; tac_discriminate.
   Qed.
 
   (* TODO : move RENAME to Base *)
@@ -90,7 +105,7 @@ Module DOORS (M : T).
     ([b:nx] & [b:yx])%reif
     (fun x => (negb x,x)).
   Proof.
-    intros ins outs H; unfold BOTH in H; tac.  
+    intros ins outs H; unfold BOTH in H; tac_discriminate.
   Qed.
 
   Program Definition XOR a b out: circuit ([:a] + [:b])  ([:out]):=
@@ -114,7 +129,7 @@ Module DOORS (M : T).
   
   Instance XOR_Implement {a b out}: Implement (XOR a b out) _ _  (curry xorb). 
   Proof. 
-    unfold XOR;   intros ins outs H; tac. 
+    unfold XOR;   intros ins outs H; tac_discriminate.
   Qed.
 
   Program Definition MUX2 a b sel out: circuit ([:a] + [:b] + [:sel]) [:out] 
@@ -137,7 +152,7 @@ Module DOORS (M : T).
    ([b: out])%reif
    (ite  ).
  Proof. 
-   unfold MUX2;intros ins outs H. tac. 
+   unfold MUX2;intros ins outs H. tac_discriminate.
  Qed.
 
  (* TODO : remettre le Fork2 ici *)
@@ -162,7 +177,7 @@ Module DOORS (M : T).
                             end
    ).
  Proof. 
-   unfold HADD;  intros ins outs H; tac. 
+   unfold HADD;  intros ins outs H; tac_discriminate.
  Qed.
 
 
@@ -202,7 +217,70 @@ Module DOORS (M : T).
      end
    ).
  Proof. 
-   unfold FADD; intros ins outs H; tac. 
+   (* changed *)
+   unfold FADD; intros ins outs H.
+   (* tac *)
+   rinvert.
+   realise_all.
+   unreify_all bool.
+   destruct_all.
+   intros_all.
+   clear.
+   (* boolean_eq unroll *)
+   (*
+   * match goal with 
+   | x : bool |- _ => destruct x
+   end;
+   *)
+   destruct b0.
+   destruct b2.
+   destruct b3.
+   destruct b4.
+   destruct b5.
+   destruct b6.
+   destruct b7.
+   destruct b8.
+   destruct b9.
+   destruct b10.
+   destruct b11.
+   destruct b12.
+   destruct b13.
+   destruct b14.
+   destruct b15.
+   destruct b16.
+   destruct b1.
+
+   intros.
+   reflexivity.
+   intros.
+   discriminate.
+   intros.
+   discriminate.
+    intros.
+    discriminate.
+    intros.
+    discriminate.
+    intros.
+    discriminate.
+    intros.
+    discriminate.
+    intros.
+    discriminate.
+    intros.
+    discriminate.
+    intros.
+    discriminate.
+    intros.
+    discriminate.
+    intros.
+
+    reflexivity.
+    discriminate.
+
+   reflexivity.
+
+
+   reflexivity.
  Qed.
 End DOORS. 
 

@@ -114,7 +114,12 @@ Ltac boolean_eq :=
   repeat match goal with 
            | x : bool |- _ => destruct x
          end;
+  reflexivity.
 
+Ltac boolean_eq_discriminate :=
+  repeat match goal with 
+           | x : bool |- _ => destruct x
+         end;
   repeat (intros; discriminate);
   reflexivity.
 
