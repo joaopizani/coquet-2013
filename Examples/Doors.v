@@ -307,7 +307,7 @@ Module ONLY_NOR <: T.
 
     Require Import Program. 
     Lemma inversion_NOR : forall ins outs, tech_spec_ _ _ (TNOR ) ins outs -> 
-      (outs tt = norb (ins (inl _ tt)) (ins (inr _ tt))).
+      (outs tt = norb (ins (inl tt)) (ins (inr tt))).
     Proof.
       intros. 
       dependent destruction H. 
@@ -315,7 +315,7 @@ Module ONLY_NOR <: T.
     Qed.
 
     Lemma inversion_NOR_stream : forall ins outs, tech_spec_s _ _ TNOR ins outs -> 
-      (forall t, outs tt t = norb (ins (inl _ tt) t) (ins (inr _ tt) t)).
+      (forall t, outs tt t = norb (ins (inl tt) t) (ins (inr tt) t)).
     Proof.
       intros. 
       dependent destruction H. 
@@ -334,7 +334,7 @@ Module ONLY_NOR <: T.
   End BLOCK.
  
   Lemma inversion_NOR : forall ins outs, tech_spec_ _ _ TNOR ins outs -> 
-    (outs tt = norb (ins (inl _ tt)) (ins (inr _ tt))). 
+    (outs tt = norb (ins (inl tt)) (ins (inr tt))). 
   Proof. apply  BLOCK.inversion_NOR. Qed.
   
   Definition NOR a b out : circuit ([:a] + [:b]) [:out]:=
@@ -414,3 +414,4 @@ Module ONLY_NOR <: T.
       | TDFF => ("dff")%string
     end.
 End ONLY_NOR. 
+
